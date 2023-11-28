@@ -17,7 +17,6 @@ const createBooking = async (booking: BookingType) => {
 };
 
 const getUserBookings = async (id: string): Promise<BookingType[]> => {
-    // Adjust return type to an array of BookingType
     try {
         await connectWithMongoDB();
         const bookings = await Booking.find({ userId: id })
