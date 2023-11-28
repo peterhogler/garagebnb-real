@@ -16,7 +16,8 @@ const createBooking = async (booking: BookingType) => {
     }
 };
 
-const getUserBookings = async (id: string): Promise<BookingType> => {
+const getUserBookings = async (id: string): Promise<BookingType[]> => {
+    // Adjust return type to an array of BookingType
     try {
         await connectWithMongoDB();
         const bookings = await Booking.find({ userId: id })
@@ -24,7 +25,9 @@ const getUserBookings = async (id: string): Promise<BookingType> => {
             .populate({ path: "listingId", select: "imageUrl" })
             .exec();
 
-        return bookings;
+        const typedBookings: BookingType[] = bookings.map((booking: any) => booking.toObject());
+
+        return typedBookings;
     } catch (error) {
         throw new Error("Unknown error");
     } finally {
