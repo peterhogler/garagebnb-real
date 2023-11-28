@@ -13,12 +13,10 @@ const createBooking = async (booking: BookingType) => {
     } catch (error) {
         console.error("Error creating booking:", error); // Log the specific error
         throw new Error("Error creating booking");
-    } finally {
-        revalidatePath(`/my-listings/[id]`);
     }
 };
 
-const getUserBookings = async (id: string) => {
+const getUserBookings = async (id: string): Promise<BookingType> => {
     try {
         await connectWithMongoDB();
         const bookings = await Booking.find({ userId: id })
