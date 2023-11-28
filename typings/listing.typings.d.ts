@@ -3,7 +3,7 @@ import { ObjectId } from "mongoose";
 type categoryTypes = "Bil" | "MC";
 
 interface Listing {
-    _id: ObjectId;
+    _id: ObjectId | string;
     title: string;
     description: string;
     imageUrl: string;
